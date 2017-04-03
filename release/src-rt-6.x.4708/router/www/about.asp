@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0//EN'>
+<!--
+	Tomato GUI
+	<% translate("Copyright"); %> (C) 2006-2010 Jonathan Zarate
+	http://www.polarcloud.com/tomato/
+
+	For use with Tomato Firmware only.
+	No part of this file may be used without permission.
+-->
+<html>
+<head>
+<meta http-equiv='content-type' content='text/html;charset=utf-8'>
+<meta name='robots' content='noindex,nofollow'>
+<title>[<% ident(); %>] <% translate("About"); %></title>
+<link rel='stylesheet' type='text/css' href='tomato.css'>
+<% css(); %>
+<script type='text/javascript' src='tomato.js'></script>
+<script type='text/javascript'>
+//	<% nvram(''); %>	// http_id
+
+var clicks = 0;
+var tux = null;
+var t = 0;
+var r = 3;
+var rd = 1;
+
+function moo()
+{
+	if ((r <= 2) || (r >= 25)) rd = -rd;
+	r += rd;
+	t += (Math.PI / 10);
+	if (t > (2 * Math.PI)) t = 0;
+
+	var x = tux.origX + (r * Math.sin(t));
+	var y = tux.origY + (r * Math.cos(t));
+
+	tux.style.left = x + 'px';
+	tux.style.top = y + 'px';
+
+	if (clicks > 0) setTimeout(moo, 33);
+}
+
+function onClick()
+{
+	try {
+		++clicks;
+		if (clicks < 10) moo();
+			else clicks = 0;
+	}
+	catch (ex) {
+	}
+}
+
+function init()
+{
+	try {
+		tux = E('tux');
+
+		var o = elem.getOffset(tux);
+		tux.origX = o.x;
+		tux.origY = o.y;
+
+		tux.style.position = 'absolute';
+		tux.style.left = o.x + 'px';
+		tux.style.top = o.y + 'px';
+
+		tux.addEventListener('click', onClick, false);
+	}
+	catch (ex) {
+	}
+}
+</script>
+<!-- / / / -->
+
+</head>
+<body onload='init()'>
+<table id='container' cellspacing=0>
+<tr><td colspan=2 id='header'>
+	<div class='title'>Tomato</div>
+	<div class='version'><% translate("Version"); %> <% version(); %></div>
+</td></tr>
+<tr id='body'><td id='navi'><script type='text/javascript'>navi()</script></td>
+<td id='content'>
+<div id='ident'><% ident(); %></div>
+
+<!-- / / / -->
+
+<div style='float:right;margin:20px 20px;text-align:center'>
+<img src='tux.png' alt='Linux &amp; Tomato' id='tux'>
+</div>
+<div class='about'>
+<b><%translate("Tomato Firmware"); %>  <% version(1); %></b><br>
+<br>
+<% translate("Linux kernel"); %> <% version(2); %> <% translate("and Broadcom Wireless Driver"); %> <% version(3); %><br>
+<i><% translate("Copyright"); %> (C) 2013-2014 <% translate("Tomato-ARM Team"); %></i><br>
+<br>
+<b><% translate("Tomato-ARM Team"); %>:</b><br>
+- Michał Rupental (Shibby)<br>
+- Ofer Chen (roadkill)<br>
+- Vicente Soriano (Victek)<br>
+<br>
+<hr>
+<!-- / / / -->
+
+<br>
+<b><% translate("TomatoUSB Team"); %> <% translate("features"); %>:</b><br>
+<!-- USB-BEGIN -->
+- <% translate("USB support integration and GUI"); %><br>
+<!-- USB-END -->
+<!-- IPV6-BEGIN -->
+- <% translate("IPv6 support"); %><br>
+<!-- IPV6-END -->
+- <% translate("Dual-band and Wireless-N mode"); %><br>
+<i><% translate("Copyright"); %> (C) 2008-2011 Fedor Kozhevnikov, Ray Van Tassle, Wes Campaigne</i><br>
+<a href='http://www.tomatousb.org/' target='_new'>http://www.tomatousb.org</a><br>
+<br>
+
+
+<b>"Shibby" <% translate("features"); %>:</b><br>
+<!-- BBT-BEGIN -->
+- <% translate("Transmission 2.92 integration"); %><br>
+<!-- BBT-END -->
+<!-- BT-BEGIN -->
+- <% translate("GUI for Transmission"); %><br>
+<!-- BT-END -->
+<!-- NFS-BEGIN -->
+- <% translate("NFS utils integration and GUI"); %><br>
+<!-- NFS-END -->
+- <% translate("Custom log file path"); %><br>
+<!-- LINUX26-BEGIN -->
+- <% translate("SD-idle tool integration for kernel 2.6"); %><br>
+<!-- USB-BEGIN -->
+- <% translate("3G Modem support"); %> (<% translate("big thanks for"); %> @LDevil)<br>
+- <% translate("4G/LTE Modem support"); %><br>
+<!-- USB-END -->
+- <% translate("MutliWAN feature"); %> (<% translate("written by"); %> @Arctic, <% translate("modified by"); %> @Shibby)<br>
+<!-- LINUX26-END -->
+<!-- SNMP-BEGIN -->
+- <% translate("SNMP integration and GUI"); %><br>
+<!-- SNMP-END -->
+<!-- UPS-BEGIN -->
+- <% translate("APCUPSD integration and GUI"); %> (<% translate("implemented by"); %> @arrmo)<br>
+<!-- UPS-END -->
+<!-- DNSCRYPT-BEGIN -->
+- <% translate("DNScrypt-proxy 1.4.0 integration and GUI"); %><br>
+<!-- DNSCRYPT-END -->
+<!-- TOR-BEGIN -->
+- <% translate("TOR Project integration and GUI"); %><br>
+<!-- TOR-END -->
+<!-- OPENVPN-BEGIN -->
+- OpenVPN: Routing Policy<br>
+<!-- OPENVPN-END -->
+- <% translate("TomatoAnon project integration and GUI"); %><br>
+- <% translate("TomatoThemeBase project integration and GUI"); %><br>
+- <% translate("Ethernet Ports State"); %><br>
+- <% translate("Extended MOTD"); %> (<% translate("written by"); %> @Monter, <% translate("modified by"); %> @Shibby)<br>
+- <% translate("Webmon Backup Script"); %><br>
+<i><% translate("Copyright"); %> (C) 2011-2014 Michał Rupental</i><br>
+<a href='http://openlinksys.info' target='_new'>http://openlinksys.info</a><br>
+<br>
+
+<b>Tomato-RAF <% translate("features"); %>:</b><br>
+- <% translate("Extended Sysinfo"); %><br>
+<!-- NOCAT-BEGIN -->
+- <% translate("Captive Portal. (Based in NocatSplash)"); %><br>
+<!-- NOCAT-END -->
+<!-- NGINX-BEGIN -->
+- <% translate("NGINX Web Server"); %><br>
+<!-- NGINX-END -->
+<!-- HFS-BEGIN -->
+- <% translate("HFS / HFS+ filesystem integration"); %><br>
+<!-- HFS-END -->
+<i><% translate("Copyright"); %> (C) 2007-2014 Ofer Chen & Vicente Soriano</i><br>
+<a href='http://victek.is-a-geek.com' target='_new'>http://victek.is-a-geek.com</a><br>
+<br>
+
+<b>"Teaman" <% translate("features"); %>:</b><br>
+- <% translate("QOS-detailed & ctrate filters"); %><br>
+- <% translate("Realtime bandwidth monitoring of LAN clients"); %><br>
+- <% translate("Static ARP binding"); %><br>
+- <% translate("VLAN administration GUI"); %><br>
+- <% translate("Multiple LAN support integration and GUI"); %><br>
+- <% translate("Multiple/virtual SSID support (experimental)"); %><br>
+- <% translate("UDPxy integration and GUI"); %><br>
+<!-- PPTPD-BEGIN -->
+- <% translate("PPTP Server integration and GUI"); %><br>
+<!-- PPTPD-END -->
+<i><% translate("Copyright"); %> (C) 2011 Augusto Bott</i><br>
+<a href='http://code.google.com/p/tomato-sdhc-vlan/' target='_new'>Tomato-sdhc-vlan <% translate("Homepage"); %></a><br>
+<br>
+
+<b>"Lancethepants" <% translate("features"); %>:</b><br>
+<!-- DNSSEC-BEGIN -->
+- <% translate("DNSSEC integration and GUI"); %><br>
+<!-- DNSSEC-END -->
+<!-- DNSCRYPT-BEGIN -->
+- <% translate("DNSCrypt-Proxy selectable/manual resolver"); %><br>
+<!-- DNSCRYPT-END -->
+<!-- TINC-BEGIN -->
+- <% translate("Tinc Daemon integration and GUI"); %><br>
+<!-- TINC-END -->
+- <% translate("Comcast DSCP Fix GUI"); %><br>
+<i><% translate("Copyright"); %> (C) 2014 Lance Fredrickson</i><br>
+<a href='mailto:lancethepants@gmail.com'>lancethepants@gmail.com</a><br>
+<br>
+
+<b>"Toastman" <% translate("features"); %>:</b><br>
+- <% translate("Configurable QOS class names"); %><br>
+- <% translate("Comprehensive QOS rule examples set by default"); %><br>
+- <% translate("GPT support for HDD by Yaniv Hamo"); %><br>
+- <% translate("Tools - System refresh timer"); %><br>
+<i><% translate("Copyright"); %> (C) 2011 Toastman</i><br>
+<a href='http://www.linksysinfo.org/index.php?threads/using-qos-tutorial-and-discussion.28349/' target='_new'><% translate("Using QoS"); %> - <% translate("Tutorial and discussion"); %></a><br>
+<br>
+
+<!-- VPN-BEGIN -->
+<b>"JYAvenard" <% translate("features"); %>:</b><br>
+<!-- OPENVPN-BEGIN -->
+- <% translate("OpenVPN enhancements &amp; username/password only authentication"); %><br>
+<!-- OPENVPN-END -->
+<!-- PPTPD-BEGIN -->
+- <% translate("PPTP VPN Client integration and GUI"); %><br>
+<!-- PPTPD-END -->
+<i><% translate("Copyright"); %> (C) 2010-2012 Jean-Yves Avenard</i><br>
+<a href='mailto:jean-yves@avenard.org'>jean-yves@avenard.org</a><br>
+<br>
+
+<!-- OPENVPN-BEGIN -->
+<b>TomatoVPN <% translate("feature"); %>:</b><br>
+- <% translate("OpenVPN integration and GUI"); %><br>
+<i><% translate("Copyright"); %> (C) 2010 Keith Moyer</i><br>
+<a href='mailto:tomatovpn@keithmoyer.com'>tomatovpn@keithmoyer.com</a><br>
+<br>
+
+<b>"TomatoEgg" <% translate("feature"); %>:</b><br>
+- <% translate("Openvpn username/password verify feature and configure GUI"); %>.<br>
+<br>
+<!-- OPENVPN-END -->
+<!-- VPN-END -->
+
+<!-- NGINX-BEGIN -->
+<b>Tomato-hyzoom <% translate("feature"); %>:</b><br>
+- <% translate("MySQL Server integration and GUI"); %><br>
+<i><% translate("Copyright"); %> (C) 2014 Bao Weiquan, Hyzoom</i><br>
+<a href='mailto:bwq518@gmail.com'>bwq518@gmail.com</a><br>
+<br>
+<!-- NGINX-END -->
+
+<b>"Victek/PrinceAMD/Phykris/Shibby" <% translate("feature"); %>:</b><br>
+- <% translate("Revised IP/MAC Bandwidth Limiter"); %><br>
+<br>
+
+<b><% translate("Special Thanks"); %>:</b><br>
+<% translate("We want to express our gratitude to all people not mentioned here but contributed with patches, new models additions, bug solving and updates to Tomato firmware"); %>.<br>
+<br>
+
+<hr>
+<br>
+<b><% translate("Based on Tomato Firmware"); %> v<% version(); %></b><br>
+<i><% translate("Copyright"); %> (C) 2006-2010 Jonathan Zarate</i><br>
+<a href='http://www.polarcloud.com/tomato/' target='_new'>http://www.polarcloud.com/tomato/</a><br>
+<br>
+<% translate("Built on"); %> <% build_time(); %> by tsynik<br><br>
+<br><br>
+
+<!--
+
+	<% translate("Please do not remove or change the homepage link or donate button"); %>.
+
+	<% translate("Thanks"); %>.
+	- Jon
+
+-->
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="image" src="pp.gif" border="0" name="submit" alt="Donate">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+</form>
+
+<div style='border-top:1px solid #e7e7e7;margin:4em 0;padding:2em 0;font-size:12px'>
+<b><% translate("Thanks to everyone who risked their routers, tested, reported bugs, made suggestions and contributed to this project"); %>. ^ _ ^</b><br>
+</div>
+
+</div>
+<!-- / / / -->
+
+</td></tr>
+	<tr><td id='footer' colspan=2>&nbsp;</td></tr>
+</table>
+</body>
+</html>
